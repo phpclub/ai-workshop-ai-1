@@ -1,5 +1,5 @@
 Используй:
-- @references/landing
+- @references/landing.png
 - @brief.md
 
 Задача:
