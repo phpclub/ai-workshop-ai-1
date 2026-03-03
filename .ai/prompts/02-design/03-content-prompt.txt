@@ -2,7 +2,7 @@
 @landing-structure.md
 
 Вот описание бизнеса:
-@brief.md
+@brief-tvm.md
 
 Вот дизайн-система:
 @design-system.md
