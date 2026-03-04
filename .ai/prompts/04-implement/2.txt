@@ -1,0 +1,9 @@
+Роль: senior frontend engineer.
+
+Задача: Создай файл `tvm.js`:
+- FAQ accordion (toggle .active на .faq__item)
+- Smooth scroll к форме
+- Базовая валидация формы (имя, телефон — required)
+- Vanilla JS, без фреймворков, без зависимостей
+
+Создай файл tvm.js и напиши "✅ JS готов" и остановись.

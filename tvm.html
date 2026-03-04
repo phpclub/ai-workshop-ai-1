@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TVM — Твой Виртуальный Мир</title>
+  <style>
+    :root {
+      /* Цвета */
+      --color-primary: #7B3FA0;
+      --color-phones: #2ECFC4;
+      --color-aviatickets: #C4266A;
+      --color-service: #FF5E1A;
+      --color-finance: #FFD000;
+      --color-bg: #FFFFFF;
+      --color-bg-alt: #F8F9FA;
+      --color-text: #1A1A1A;
+      --color-text-secondary: #666666;
+      --color-border: #E0E0E0;
+      --color-success: #27AE60;
+      --color-error: #E74C3C;
+
+      /* Типографика */
+      --font-heading: 'Inter', 'Roboto', sans-serif;
+      --font-body: 'Inter', 'Roboto', sans-serif;
+
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+
+      /* Радиусы и тени */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 24px;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      line-height: 1.6;
+      background-color: var(--color-bg);
+    }
+
+    .section {
+      padding: var(--space-2xl) 0;
+    }
+
+    .section--alt {
+      background-color: var(--color-bg-alt);
+    }
+
+    .section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+    }
+
+    .section__header {
+      margin-bottom: var(--space-xl);
+    }
+
+    .section__title {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: var(--space-sm);
+    }
+
+    .section__subtitle {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      text-decoration: none;
+    }
+
+    .button--primary {
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+    }
+
+    .button--service {
+      background-color: var(--color-service);
+      color: #FFFFFF;
+    }
+
+    .button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .button:active {
+      transform: translateY(0);
+    }
+
+    .button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .card {
+      background-color: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .badge--success {
+      background-color: rgba(39, 174, 96, 0.1);
+      color: var(--color-success);
+    }
+
+    .testimonial {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .testimonial__quote {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--color-text);
+    }
+
+    .testimonial__author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .testimonial__author-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .testimonial__author-date {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .input {
+      padding: 12px 16px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      transition: border-color 0.2s ease;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    .input--error {
+      border-color: var(--color-error);
+    }
+
+    .input--success {
+      border-color: var(--color-success);
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: var(--space-lg);
+    }
+
+    .table th,
+    .table td {
+      padding: var(--space-md);
+      text-align: left;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .table th {
+      font-weight: 600;
+      background-color: rgba(123, 63, 160, 0.05);
+    }
+
+    .table td {
+      color: var(--color-text);
+    }
+
+    .table td:first-child {
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+
+    .table td:last-child {
+      color: var(--color-success);
+    }
+
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .accordion__item {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .accordion__header {
+      padding: var(--space-md);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 16px;
+      background-color: #FFFFFF;
+    }
+
+    .accordion__header:hover {
+      background-color: rgba(123, 63, 160, 0.05);
+    }
+
+    .accordion__content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0 var(--space-md);
+    }
+
+    .accordion__content--active {
+      max-height: 500px;
+      padding: var(--space-md);
+    }
+
+    .accordion__text {
+      color: var(--color-text-secondary);
+      font-size: 16px;
+    }
+
+    .directions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .direction-card {
+      text-align: center;
+      padding: var(--space-lg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .direction-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .direction-card__icon {
+      font-size: 32px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .direction-card__title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+    }
+
+    .direction-card__text {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+
+    .direction-card--phones { border-color: var(--color-phones); }
+    .direction-card--aviatickets { border-color: var(--color-aviatickets); }
+    .direction-card--service { border-color: var(--color-service); }
+    .direction-card--finance { border-color: var(--color-finance); }
+
+    .direction-card--phones .direction-card__icon { color: var(--color-phones); }
+    .direction-card--aviatickets .direction-card__icon { color: var(--color-aviatickets); }
+    .direction-card--service .direction-card__icon { color: var(--color-service); }
+    .direction-card--finance .direction-card__icon { color: var(--color-finance); }
+
+    .guarantees-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .guarantee-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+    }
+
+    .guarantee-icon {
+      font-size: 24px;
+      color: var(--color-success);
+      flex-shrink: 0;
+    }
+
+    .guarantee-text {
+      font-size: 16px;
+      color: var(--color-text);
+    }
+
+    .location-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    .location-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: 16px;
+      color: var(--color-text);
+    }
+
+    .location-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .location-text {
+      font-size: 16px;
+      color: var(--color-text);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      margin-top: var(--space-lg);
+    }
+
+    .footer-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .footer-title {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .footer-link {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-link:hover {
+      color: var(--color-primary);
+    }
+
+    .footer-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .footer-contact {
+      font-size: 16px;
+      color: var(--color-text);
+    }
+
+    .footer-hours {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+
+    .footer-directions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      font-size: 16px;
+    }
+
+    .footer-direction {
+      font-size: 16px;
+    }
+
+    .header-top {
+      background-color: var(--color-bg);
+      padding: var(--space-md) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .header-top__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .header-hours {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+
+    .header-phone {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .header-cta {
+      display: none;
+    }
+
+    .hero-section {
+      background-color: var(--color-bg);
+      padding: var(--space-2xl) 0;
+    }
+
+    .hero-section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: var(--space-lg);
+      color: var(--color-text);
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-xl);
+      max-width: 800px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .directions-section {
+      background-color: var(--color-bg-alt);
+    }
+
+    .directions-section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+    }
+
+    .directions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .problem-solution-section {
+      background-color: var(--color-bg);
+    }
+
+    .problem-solution-section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+    }
+
+    .proof-section {
+      background-color: var(--color-bg-alt);
+    }
+
+    .proof-section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .location-section {
+      background-color: var(--color-bg);
+    }
+
+    .location-section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+    }
+
+    .faq-section {
+      background-color: var(--color-bg-alt);
+    }
+
+    .faq-section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+    }
+
+    .guarantees-section {
+      background-color: var(--color-bg);
+    }
+
+    .guarantees-section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+    }
+
+    .cta-section {
+      background-color: var(--color-bg-alt);
+    }
+
+    .cta-section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+    }
+
+    .footer-section {
+      background-color: var(--color-bg);
+    }
+
+    .footer-section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      margin-top: var(--space-lg);
+    }
+
+    .footer-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .footer-title {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .footer-link {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-link:hover {
+      color: var(--color-primary);
+    }
+
+    .footer-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .footer-contact {
+      font-size: 16px;
+      color: var(--color-text);
+    }
+
+    .footer-hours {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+
+    .footer-directions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      font-size: 16px;
+    }
+
+    .footer-direction {
+      font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --space-xl: 20px;
+        --space-2xl: 32px;
+      }
+
+      .section__container {
+        padding: 0 var(--space-md);
+      }
+
+      .card {
+        padding: var(--space-lg);
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .header-top__container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .header-cta {
+        display: inline-flex;
+      }
+
+      .hero-title {
+        font-size: 28px;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .directions-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .proof-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .table th,
+      .table td {
+        font-size: 14px;
+        padding: var(--space-sm);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header-top">
+    <div class="header-top__container">
+      <div class="header-hours">Пн–Пт 10:00–20:00 / Сб–Вс 11:00–19:00</div>
+      <div class="header-phone">+7 (499) 403-17-00</div>
+      <button class="button button--service header-cta">Позвонить сейчас</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="hero-section__container">
+      <h1 class="hero-title">TVM — живой сервис рядом. Помогаем выбрать телефон и оформить билет без очередей, без автоответов и без сюрпризов.</h1>
+      <p class="hero-subtitle">25 лет опыта в Москве. Только новый товар. Только реальный человек на связи.</p>
+      <div class="hero-cta">
+        <button class="button button--primary">Оставить заявку</button>
+        <button class="button button--service">Позвонить</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Directions -->
+  <section class="directions-section">
+    <div class="directions-section__container">
+      <div class="section__header">
+        <h2 class="section__title">Всё в одном месте: телефоны, тарифы, билеты, печать, финуслуги, интернет</h2>
+        <p class="section__subtitle">Каждое направление — свой специалист. Не перекладывайте между отделами — мы всё знаем.</p>
+      </div>
+      <div class="directions-grid">
+        <div class="direction-card direction-card--phones">
+          <div class="direction-card__icon">📱</div>
+          <div class="direction-card__title">Телефоны</div>
+          <div class="direction-card__text">Samsung, Apple, Xiaomi</div>
+        </div>
+        <div class="direction-card direction-card--service">
+          <div class="direction-card__icon">📡</div>
+          <div class="direction-card__title">Операторы</div>
+          <div class="direction-card__text">МТС, МегаФон, Билайн</div>
+        </div>
+        <div class="direction-card direction-card--aviatickets">
+          <div class="direction-card__icon">✈️</div>
+          <div class="direction-card__title">Билеты</div>
+          <div class="direction-card__text">Оформление для всех</div>
+        </div>
+        <div class="direction-card direction-card--service">
+          <div class="direction-card__icon">🖨️</div>
+          <div class="direction-card__title">Печать</div>
+          <div class="direction-card__text">Срочно, без очереди</div>
+        </div>
+        <div class="direction-card direction-card--finance">
+          <div class="direction-card__icon">💳</div>
+          <div class="direction-card__title">Финансы</div>
+          <div class="direction-card__text">Карта Альфа-Банк</div>
+        </div>
+        <div class="direction-card">
+          <div class="direction-card__icon">🌐</div>
+          <div class="direction-card__title">Интернет</div>
+          <div class="direction-card__text">Роутеры, ТВ-приставки</div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: var(--space-xl);">
+        <button class="button button--primary">Посмотреть каталог</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem-Solution -->
+  <section class="problem-solution-section">
+    <div class="problem-solution-section__container">
+      <div class="section__header">
+        <h2 class="section__title">Почему TVM — не ещё один агрегатор</h2>
+        <p class="section__subtitle">Разоблачаем жалобы на конкурентов и даём гарантии</p>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Боли клиентов</th>
+            <th>Как решаем у TVM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>«Продают б/у под видом нового»</td>
+            <td>Проверяем серийный номер на месте, даем гарантийный талон</td>
+          </tr>
+          <tr>
+            <td>«Заказ подтвердили — отменили без объяснений»</td>
+            <td>Оформляем по чеку, отмена только по вашей причине</td>
+          </tr>
+          <tr>
+            <td>«Продавец грубый, ничего не объясняет»</td>
+            <td>Обучаем сотрудников — объясняем просто и ненавязчиво</td>
+          </tr>
+          <tr>
+            <td>«Телефон занят, автоответы»</td>
+            <td>Телефон в офисе — всегда живой человек</td>
+          </tr>
+          <tr>
+            <td>«Билеты не выписали 5 дней»</td>
+            <td>Оформляем вместе, показываем подтверждение сразу</td>
+          </tr>
+          <tr>
+            <td>«При отмене вернули только 40%»</td>
+            <td>Возвращаем 100% — работаем через ООО «АэроТур»</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center; margin-top: var(--space-xl);">
+        <button class="button button--primary">Узнать подробнее</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section class="proof-section">
+    <div class="proof-section__container">
+      <div class="section__header">
+        <h2 class="section__title">«Знает всё о товаре, помогает с выбором, ненавязчиво» — реальные клиенты</h2>
+        <p class="section__subtitle">40+ отзывов на Яндекс.Картах. Без фейков, без шаблонных фраз.</p>
+      </div>
+      <div class="proof-grid">
+        <div class="card">
+          <div class="testimonial">
+            <div class="testimonial__quote">«Низкие цены. Вежливый продавец. О товаре знает всё. Помогает с выбором. Быстро доставляет. Делает скидку и подарки. Удобный подъезд с парковкой»</div>
+            <div class="testimonial__author">
+              <span class="testimonial__author-name">Алексей Калеев</span>
+              <span class="testimonial__author-date">, май 2025</span>
+            </div>
+            <div class="badge badge--success">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="testimonial">
+            <div class="testimonial__quote">«Крутой продавец, специалист по всем вопросам! Всё рассказал и показал, всё было ненавязчиво!»</div>
+            <div class="testimonial__author">
+              <span class="testimonial__author-name">PVG</span>
+              <span class="testimonial__author-date">, апрель 2021</span>
+            </div>
+            <div class="badge badge--success">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="testimonial">
+            <div class="testimonial__quote">«Очень квалифицированная, грамотная консультация по тарифам. Подобрали отличный вариант для интернета на даче»</div>
+            <div class="testimonial__author">
+              <span class="testimonial__author-name">Олег</span>
+              <span class="testimonial__author-date">, февраль 2021</span>
+            </div>
+            <div class="badge badge--success">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: var(--space-xl);">
+        <button class="button button--primary">Читать все отзывы</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location -->
+  <section class="location-section">
+    <div class="location-section__container">
+      <div class="section__header">
+        <h2 class="section__title">До нас легко добраться — метро, автобус, машина</h2>
+        <p class="section__subtitle">Мытищи, д. Грибки, Дмитровское шоссе, 48. Удобная парковка — 10 мест.</p>
+      </div>
+      <div class="location-info">
+        <div class="location-item">
+          <span class="location-icon">🚇</span>
+          <span class="location-text">Метро Физтех — 4,6 км (такси от 219 ₽)</span>
+        </div>
+        <div class="location-item">
+          <span class="location-icon">🚌</span>
+          <span class="location-text">Автобус — остановка «Строительный рынок» (450 м)</span>
+        </div>
+        <div class="location-item">
+          <span class="location-icon">🚗</span>
+          <span class="location-text">Парковка — 10 мест рядом с офисом, бесплатная</span>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: var(--space-xl);">
+        <button class="button button--primary">Проложить маршрут</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="faq-section__container">
+      <div class="section__header">
+        <h2 class="section__title">Частые вопросы — ответы до звонка</h2>
+        <p class="section__subtitle">Ответим на 5 главных вопросов, чтобы вы не тратили время на звонок.</p>
+      </div>
+      <div class="accordion">
+        <div class="accordion__item">
+          <div class="accordion__header">
+            <span>Помогаете оформить авиабилет — я не разбираюсь?</span>
+            <span>+</span>
+          </div>
+          <div class="accordion__content">
+            <p class="accordion__text">Конечно. Приходите в офис — оформим вместе пошагово. Работаем с иностранными гражданами.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <div class="accordion__header">
+            <span>Сколько стоит авиабилет?</span>
+            <span>+</span>
+          </div>
+          <div class="accordion__content">
+            <p class="accordion__text">Цена зависит от направления и даты. Воспользуйтесь поиском на сайте — покажем актуальные цены.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <div class="accordion__header">
+            <span>Можете распечатать документы?</span>
+            <span>+</span>
+          </div>
+          <div class="accordion__content">
+            <p class="accordion__text">Да, прямо в офисе. Срочная печать — без очереди. Стоимость от 3 ₽ за лист.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <div class="accordion__header">
+            <span>Какой тариф выбрать?</span>
+            <span>+</span>
+          </div>
+          <div class="accordion__content">
+            <p class="accordion__text">Расскажите задачи — подберём тариф с безлимитным интернетом по минимальной цене среди всех операторов.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <div class="accordion__header">
+            <span>Доставляете телефоны?</span>
+            <span>+</span>
+          </div>
+          <div class="accordion__content">
+            <p class="accordion__text">Да, курьером по Москве и МО. Самовывоз: д. Грибки, Дмитровское шоссе, 48.</p>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: var(--space-xl);">
+        <button class="button button--primary">Задать вопрос</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guarantees -->
+  <section class="guarantees-section">
+    <div class="guarantees-section__container">
+      <div class="section__header">
+        <h2 class="section__title">Гарантии, которые работают — не на словах, а на деле</h2>
+        <p class="section__subtitle">Только новый товар. Возврат по чеку. Помощь при проблемах.</p>
+      </div>
+      <div class="guarantees-list">
+        <div class="guarantee-item">
+          <span class="guarantee-icon">✅</span>
+          <span class="guarantee-text">Только новые товары — проверяем серийные номера</span>
+        </div>
+        <div class="guarantee-item">
+          <span class="guarantee-icon">✅</span>
+          <span class="guarantee-text">Возврат по чеку — 14 дней, без объяснений</span>
+        </div>
+        <div class="guarantee-item">
+          <span class="guarantee-icon">✅</span>
+          <span class="guarantee-text">Помощь при гарантийных случаях — сами решаем, не перекладываем</span>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: var(--space-xl);">
+        <button class="button button--primary">Узнать о гарантиях</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-section__container">
+      <div class="section__header">
+        <h2 class="section__title">Оставьте заявку — поможем выбрать и оформить</h2>
+        <p class="section__subtitle">Заполните форму — свяжемся в течение 15 минут. Или просто позвоните — +7 (49м) 403-17-00.</p>
+      </div>
+      <form class="form">
+        <input type="text" class="input" placeholder="Имя" required>
+        <input type="tel" class="input" placeholder="Телефон" required>
+        <select class="input">
+          <option value="" disabled selected>Выберите направление</option>
+          <option value="phone">Телефон</option>
+          <option value="tariff">Тариф</option>
+          <option value="ticket">Билет</option>
+          <option value="print">Печать</option>
+          <option value="other">Другое</option>
+        </select>
+        <textarea class="input" rows="4" placeholder="Комментарий"></textarea>
+        <button type="submit" class="button button--service">Отправить заявку</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="footer-section__container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <div class="footer-title">TVM — Твой Виртуальный Мир</div>
+          <div class="footer-contacts">
+            <div class="footer-contact">Мытищи, д. Грибки, Дмитровское шоссе, 48</div>
+            <div class="footer-hours">Пн–Пт 10:00–20:00 / Сб–Вс 11:00–19:00</div>
+            <div class="footer-contact">+7 (49м) 403-17-00</div>
+            <div class="footer-contact">tvm.ru@yandex.ru</div>
+          </div>
+          <div style="margin-top: var(--space-lg);">
+            <button class="button button--service">Позвонить</button>
+          </div>
+        </div>
+        <div class="footer-section">
+          <div class="footer-title">Направления</div>
+          <div class="footer-directions">
+            <span class="footer-direction">📱 Телефоны</span>
+            <span class="footer-direction">📡 Операторы</span>
+            <span class="footer-direction">✈️ Билеты</span>
+            <span class="footer-direction">🖨️ Печать</span>
+            <span class="footer-direction">💳 Финансы</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Accordion functionality
+    document.querySelectorAll('.accordion__header').forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.parentElement;
+        const content = item.querySelector('.accordion__content');
+        const icon = header.querySelector('span:last-child');
+
+        if (content.classList.contains('accordion__content--active')) {
+          content.classList.remove('accordion__content--active');
+          icon.textContent = '+';
+        } else {
+          content.classList.add('accordion__content--active');
+          icon.textContent = '−';
+        }
+      });
+    });
+
+    // Form validation
+    document.querySelector('.form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const inputs = e.target.querySelectorAll('.input');
+      let isValid = true;
+
+      inputs.forEach(input => {
+        if (!input.value.trim()) {
+          input.classList.add('input--error');
+          isValid = false;
+        } else {
+          input.classList.remove('input--error');
+          input.classList.add('input--success');
+        }
+      });
+
+      if (isValid) {
+        alert('Заявка отправлена! Мы свяжемся с вами в течение 15 минут.');
+        e.target.reset();
+        inputs.forEach(input => input.classList.remove('input--success'));
+      }
+    });
+  </script>
+</body>
+</html>

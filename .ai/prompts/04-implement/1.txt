@@ -1,0 +1,11 @@
+Роль: senior frontend engineer.
+
+Используй: @design-system.md
+
+Задача: Создай файл `tvm.css` — все стили для лендинга TVM.
+- CSS variables из design-system
+- Все компоненты: .button, .card, .section, .form-group, .faq__item
+- Mobile-first, breakpoint 768px
+- БЕЗ HTML, БЕЗ JS
+
+Создай файл tvm.css и напиши "✅ CSS готов" и остановись.
